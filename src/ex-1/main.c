@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define ARR_SIZE 5
 
@@ -21,12 +22,34 @@ int* create_index_arr(int n)
     return arr;
 }
 
+/**
+ * @warning This function allocates the array with malloc and it must be freed with the `free` function.
+ * numbers may be dynamic array, it can also be a static array, it doesn't matter because we get it's size.
+ */
+int* duplicate_numbers(const int* numbers, int length)
+{
+    if(length < 1 || numbers == NULL)
+    {
+        return NULL;
+    }
+    int* numbersCopy = malloc(sizeof(int) * length);
+    memcpy(numbersCopy, numbers, length * sizeof(int));
+    return numbersCopy;
+
+}
+
 int main(void)
 {
     int* arr = create_index_arr(ARR_SIZE);
     for(size_t i = 0; i < ARR_SIZE; i++){
         printf("%d\n", arr[i]);
     }
+    putchar('\n');
+    int* secondArr = duplicate_numbers(arr, ARR_SIZE);
+    for(size_t i = 0; i < ARR_SIZE; i++){
+        printf("%d\n", arr[i]);
+    }
     free(arr);
+    free(secondArr);
     return 0;
 }
