@@ -15,3 +15,6 @@ _deps
 
 # Build dir.
 /build
+/out
+# Visual Studio
+.vs

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "fibonacci.h"
 
 #define ARR_SIZE 5
 
@@ -38,6 +39,25 @@ int* duplicate_numbers(const int* numbers, int length)
 
 }
 
+
+/*
+ * @warning This function allocates the array with malloc and it must be freed with the `free` function.
+*/
+int* fib(int max_num)
+{
+    const int arrayLength = get_fib_index(max_num) + 1;
+    if (arrayLength == -1)
+    {
+        return NULL;
+    }
+    int* numbers = malloc(sizeof(int) * arrayLength);
+    for (int i = 0; i < arrayLength; i++)
+    {
+        numbers[i] = fibonacci(i);
+    }
+    return numbers;
+}
+
 int main(void)
 {
     int* arr = create_index_arr(ARR_SIZE);
@@ -49,7 +69,9 @@ int main(void)
     for(size_t i = 0; i < ARR_SIZE; i++){
         printf("%d\n", arr[i]);
     }
+    int* fibNums = fib(8);
     free(arr);
     free(secondArr);
+    free(fibNums);
     return 0;
 }
