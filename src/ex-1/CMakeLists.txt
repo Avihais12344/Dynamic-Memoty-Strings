@@ -1,0 +1,1 @@
+add_executable(ex-1 "main.c")
