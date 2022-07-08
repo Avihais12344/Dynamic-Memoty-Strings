@@ -20,3 +20,15 @@ void DestructArrayList(ArrayList *arrayListToInitialize)
     free(arrayListToInitialize->Items);
     arrayListToInitialize->Items = NULL;
 }
+
+bool TryGetItemAtIndexFromArrayList(ArrayList *arrayList,
+                                    size_t index,
+                                    int *itemContainer)
+{
+    if(arrayList == NULL || itemContainer == NULL || index >= arrayList->Size)
+    {
+        return false;
+    }
+    *itemContainer = arrayList->Items[index];
+    return true;
+}
