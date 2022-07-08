@@ -1,0 +1,6 @@
+add_executable(ArrayListTest "ArrayListTest.cpp")
+find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(ArrayListTest PRIVATE ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+target_link_libraries(ArrayListTest PRIVATE ArrayList)
+add_test(NAME ArrayListTest COMMAND ArrayListTest)
