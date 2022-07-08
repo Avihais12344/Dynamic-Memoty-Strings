@@ -10,19 +10,19 @@ typedef struct ArrayList {
   size_t ReallocationJumpSize;
 } ArrayList;
 
-void InitializeArrayList(ArrayList *arrayListToInitialize,
+extern void InitializeArrayList(ArrayList *arrayListToInitialize,
                          size_t capacityToInitialize);
 
-void DestructArrayList(ArrayList *arrayListToDestroy);
+extern void DestructArrayList(ArrayList *arrayListToDestroy);
 
-bool TryGetItemAtIndexFromArrayList(ArrayList *arrayList,
+extern bool TryGetItemAtIndexFromArrayList(ArrayList *arrayList,
                                     size_t index,
                                     int *itemContainer);
 
-void CloneArrayList(ArrayList *src, ArrayList *dest);
+extern void CloneArrayList(ArrayList *src, ArrayList *dest);
 
-void AddItemToTheEndOfArrayList(ArrayList *arrayList, int itemToAdd);
+extern void AddItemToTheEndOfArrayList(ArrayList *arrayList, int itemToAdd);
 
-bool RemoveItemFromTheEndOfArrayList(ArrayList *arrayList);
+extern bool RemoveItemFromTheEndOfArrayList(ArrayList *arrayList);
 
 #endif // __ARRAY_LIST_H__

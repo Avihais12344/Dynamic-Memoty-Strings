@@ -2,13 +2,32 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define CALCULATE_REALOCATION_JUMP_SIZE(capacity) capacity / 2;
+#define CALCULATE_REALOCATION_JUMP_SIZE(capacity) capacity / 2 > 0 ? capacity / 2 : 1;
+
+void ExpandArrayList(ArrayList* arrayList)
+{
+    arrayList->Capacity = arrayList->Capacity + arrayList->ReallocationJumpSize;
+    arrayList->Items = realloc(arrayList->Items, sizeof(int) * arrayList->Capacity);
+}
+
+void ContractArrayList(ArrayList* arrayList)
+{
+    if(arrayList->Capacity <= arrayList->ReallocationJumpSize)
+    {
+        arrayList->Capacity = 0;
+        free(arrayList->Items);
+        arrayList->Items = NULL;
+        return;
+    }
+    arrayList->Capacity = arrayList->Capacity - arrayList->ReallocationJumpSize;
+    arrayList->Items = realloc(arrayList->Items, sizeof(int) * arrayList->Capacity);
+}
 
 void InitializeArrayList(ArrayList *arrayListToInitialize,
                          size_t capacityToInitialize)
 {
     arrayListToInitialize->Capacity = capacityToInitialize;
-    arrayListToInitialize->Size = NULL;
+    arrayListToInitialize->Size = 0;
     arrayListToInitialize->ReallocationJumpSize = CALCULATE_REALOCATION_JUMP_SIZE(capacityToInitialize);
     arrayListToInitialize->Items = malloc(capacityToInitialize * sizeof(int));
 }
@@ -19,9 +38,9 @@ void DestructArrayList(ArrayList *arrayListToDestroy)
     {
         return;
     }
-    arrayListToDestroy->Capacity = NULL;
-    arrayListToDestroy->Size = NULL;
-    arrayListToDestroy->ReallocationJumpSize = NULL;
+    arrayListToDestroy->Capacity = 0;
+    arrayListToDestroy->Size = 0;
+    arrayListToDestroy->ReallocationJumpSize = 0;
     free(arrayListToDestroy->Items);
     arrayListToDestroy->Items = NULL;
 }
@@ -57,4 +76,31 @@ void CloneArrayList(ArrayList *src, ArrayList *dest)
     // Initialize and copy the array.
     dest->Items = malloc(src->Capacity);
     memcpy(dest->Items, src->Items, src->Size);
+}
+
+void AddItemToTheEndOfArrayList(ArrayList *arrayList, int itemToAdd)
+{
+    if(arrayList == NULL || arrayList->Items == NULL)
+    {
+        return;
+    }
+    else if(arrayList->Size + 1 > arrayList->Capacity)
+    {
+        ExpandArrayList(arrayList);
+    }
+    arrayList->Items[arrayList->Size++] = itemToAdd;
+}
+
+bool RemoveItemFromTheEndOfArrayList(ArrayList *arrayList)
+{
+    if(arrayList == NULL || arrayList->Items == NULL)
+    {
+        return false;
+    }
+    else if(arrayList - 1 == 0 || arrayList->Size - 1 <= (long int)arrayList->Capacity - arrayList->ReallocationJumpSize)
+    {
+        ContractArrayList(arrayList);
+    }
+    arrayList->Size--;
+    return false;
 }
