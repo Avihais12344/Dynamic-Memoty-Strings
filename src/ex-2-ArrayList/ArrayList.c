@@ -25,7 +25,10 @@ bool TryGetItemAtIndexFromArrayList(ArrayList *arrayList,
                                     size_t index,
                                     int *itemContainer)
 {
-    if(arrayList == NULL || itemContainer == NULL || index >= arrayList->Size)
+    if(arrayList == NULL ||
+    itemContainer == NULL ||
+    arrayList->Items == NULL ||
+    index >= arrayList->Size)
     {
         return false;
     }
