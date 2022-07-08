@@ -13,7 +13,7 @@ typedef struct ArrayList {
 void InitializeArrayList(ArrayList *arrayListToInitialize,
                          size_t capacityToInitialize);
 
-void DestructArrayList(ArrayList *arrayListToInitialize);
+void DestructArrayList(ArrayList *arrayListToDestroy);
 
 bool TryGetItemAtIndexFromArrayList(ArrayList *arrayList,
                                     size_t index,
